@@ -20,8 +20,8 @@ main ()
     int result = (rand() %10) + 1;
 
     char name[50];
-   //std::cout << "what is your name? "; 
-   //std::cin >> name; 
-   std::cout << "hello " << "name" << " your lucky number is "<< result << std::endl;
+   std::cout << "what is your name? "; 
+   std::cin >> name; 
+   std::cout << "hello " << name << " your lucky number is "<< result << std::endl;
   return 0;
 }
