@@ -1,5 +1,7 @@
 #include <iostream>
 #include <vector>
+#include <stdlib.h>    
+
 
 int
 main ()
@@ -12,9 +14,14 @@ main ()
 
   for (auto val : v)
   {
-    std::cout << val << ' ';
+    std::cout << "...."<<val << ' ' << "\n" ;
   }
-  std::cout << "\nHello, World!" << std::endl;
+  
+    int result = (rand() %10) + 1;
 
+    char name[50];
+   //std::cout << "what is your name? "; 
+   //std::cin >> name; 
+   std::cout << "hello " << "name" << " your lucky number is "<< result << std::endl;
   return 0;
 }
