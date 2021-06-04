@@ -11,12 +11,14 @@ char name[50];
 int eng_marks, math_marks, sci_marks, lang2_marks, cs_marks;
 double average;
 char grade;
+double gpa;
 
 public:
 void getdata();
 void showdata() const;
 void calculate();
 int retrollno() const;
+void getGpa();
 }; //class ends here
 
 void student::calculate()
@@ -30,6 +32,17 @@ else if(average>=50)
 grade='C';
 else
 grade='F';
+}
+
+void student::getGpa(){
+if(average>=90)
+gpa= 4.00;
+else if(average>=75)
+gpa= 3.00;
+else if(average>=50)
+gpa = 2.00;
+else
+gpa= 1.00;
 }
 
 void student::getdata()
@@ -51,6 +64,7 @@ cin>>lang2_marks;
 cout<<"\nEnter marks in Computer science:  ";
 cin>>cs_marks;
 calculate();
+getGpa();
 }
 void student::showdata() const
 {
@@ -62,6 +76,7 @@ cout<<"\nScience : "<<sci_marks;
 cout<<"\nLanguage2 : "<<lang2_marks;
 cout<<"\nComputer Science :"<<cs_marks;
 cout<<"\nAverage Marks :"<<average;
+cout<<"\nYour Gpa for this Term is :"<<gpa;
 cout<<"\nGrade of student is :"<<grade;
 }
 int  student::retrollno() const
@@ -73,7 +88,7 @@ void create_student();
 void display_sp(int);//display particular record
 void display_all(); // display all records
 void delete_student(int);//delete particular record
-void change_student(int);//edit particular record
+//void change_student(int);//edit particular record
 //MAIN
 int main()
 {
@@ -89,9 +104,9 @@ cout<<"\n\n\t1.Create student record";
 cout<<"\n\n\t2. Search student record";
 cout<<"\n\n\t3. Display all students records ";
 cout<<"\n\n\t4.Delete student record";
-cout<<"\n\n\t5.Modify student record";
-cout<<"\n\n\t6.Exit";
-cout<<"\n\n\What is your Choice (1/2/3/4/5/6) ";
+//cout<<"\n\n\t5.Modify student record";
+cout<<"\n\n\t5.Exit";
+cout<<"\nWhat is your Choice (1/2/3/4/5/6) ";
 cin>>ch;
 system("cls");
 switch(ch)
@@ -104,11 +119,11 @@ case '3': display_all(); break;
 case '4': cout<<"\n\n\tEnter The roll number: "; 
 cin>>num;
 delete_student(num);break;
-case '5': cout<<"\n\n\tEnter The roll number "; cin>>num;
-change_student(num);break;
-case '6': cout<<"Exiting, Thank you!";exit(0);
+// case '5': cout<<"\n\n\tEnter The roll number "; cin>>num;
+// change_student(num);break;
+case '5': cout<<"Exiting, Thank you!";exit(0);
 }
-}while(ch!='6');
+}while(ch!='5');
 return 0;
 }
 //write student details to file
@@ -176,40 +191,40 @@ cin.ignore();
 cin.get();
 }
 // modify record for specified roll number
-void change_student(int n)
-{
-bool found=false;
-student stud;
-fstream fl;
-fl.open("student.dat",ios::binary|ios::in|ios::out);
-if(!fl)
-{
-cout<<"File could not be opened. Press any Key to exit...";
-cin.ignore();
-cin.get();
-return;
-}
-     while(!fl.eof() && found==false)
-{
-fl.read(reinterpret_cast<char *> (&stud), sizeof(student));
-if(stud.retrollno()==n)
-{
-stud.showdata();
-cout<<"\n\Enter new student details:"<<endl;
-stud.getdata();
-    int pos=(-1)*static_cast<int>(sizeof(stud));
-    fl.seekp(pos,ios::cur);
-    fl.write(reinterpret_cast<char *> (&stud), sizeof(student));
-    cout<<"\n\n\t Record Updated";
-    found=true;
-}
-}
-fl.close();
-if(found==false)
-cout<<"\n\n Record Not Found ";
-cin.ignore();
-cin.get();
-}
+// void change_student(int n)
+// {
+// bool found=false;
+// student stud;
+// fstream fl;
+// fl.open("student.dat",ios::binary|ios::in|ios::out);
+// if(!fl)
+// {
+// cout<<"File could not be opened. Press any Key to exit...";
+// cin.ignore();
+// cin.get();
+// return;
+// }
+//      while(!fl.eof() && found==false)
+// {
+// fl.read(reinterpret_cast<char *> (&stud), sizeof(student));
+// if(stud.retrollno()==n)
+// {
+// stud.showdata();
+// cout<<"\n\Enter new student details:"<<endl;
+// stud.getdata();
+//     int pos=(-1)*static_cast<int>(sizeof(stud));
+//     fl.seekp(pos,ios::cur);
+//     fl.write(reinterpret_cast<char *> (&stud), sizeof(student));
+//     cout<<"\n\n\t Record Updated";
+//     found=true;
+// }
+// }
+// fl.close();
+// if(found==false)
+// cout<<"\n\n Record Not Found ";
+// cin.ignore();
+// cin.get();
+// }
 //delete record with particular roll number
 void delete_student(int n)
 {
